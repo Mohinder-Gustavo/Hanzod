@@ -7,7 +7,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Mudamos para 22.04 para evitar conflitos de versões novas de Python/Pip
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout code
@@ -33,7 +34,9 @@ jobs:
           command: buildozer android debug
           buildozer_version: stable
         env:
-          USER: root  # <--- ISSO AQUI CORRIGE O ERRO DE PERMISSÃO
+          USER: root
+          # Essa linha abaixo pula o erro de "externally-managed-environment"
+          PIP_BREAK_SYSTEM_PACKAGES: 1
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
