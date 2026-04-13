@@ -9,6 +9,9 @@ package.name = hanzod
 # (str) Package domain (needed for android packaging)
 package.domain = org.astroapp
 
+# (str) VIERAM FALTANDO ESTAS LINHAS:
+version = 0.1
+
 # (str) Source code where the main.py live
 source.dir = .
 
