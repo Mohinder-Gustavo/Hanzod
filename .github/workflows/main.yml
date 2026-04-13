@@ -2,8 +2,8 @@ name: Build APK
 
 on:
   push:
-    branches: [ main ] # Executa ao dar push na main
-  workflow_dispatch:   # Permite que você execute manualmente pelo painel do GitHub
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,7 +19,6 @@ jobs:
           echo "date=$(date -u +'%Y%m%d')" >> $GITHUB_OUTPUT
         shell: bash
 
-      # O cache evita que o Buildozer baixe o SDK/NDK do Android toda vez (economiza 10-15 min)
       - name: Cache Buildozer stats
         uses: actions/cache@v4
         with:
@@ -33,9 +32,11 @@ jobs:
         with:
           command: buildozer android debug
           buildozer_version: stable
+        env:
+          USER: root  # <--- ISSO AQUI CORRIGE O ERRO DE PERMISSÃO
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: MyKivyApp-APK
+          name: Hanzod-APK
           path: bin/*.apk
